@@ -1,6 +1,12 @@
 #ifndef NAPOLI_H
 #define NAPOLI_H
 
+#define N_CENTROS 10
+#define N_VENTAS 30
+#define N_LOCALIDADES 20
+
+
+/*---------------------Centros-------------------------------*/
 
 enum Localidad {Móstoles, Alcalá, Leganés, Fuenlabrada, Getafe, Alcorcón, Torrejón, Parla,
 Alcobendas, Coslada, Pozuelo, Rivas, Valdemoro, Majadahonda, Aranjuez, Arganda,
@@ -12,6 +18,32 @@ struct centro{
     lista ventas;
 };
 
+centro crearCentro();
+
+
+/*-----------------------------------------------------------*/
+
+/*-------------------Ventas----------------------------------*/
+
+enum Codigo{NP01,NP02,NP03,NP04,NP05,NP06,NP07,NP08};
+enum Categoria{Tradicional,Carne,Verduras,Quesos};
+
+struct venta{
+    int id_centro;
+    char id_venta[7];
+    Codigo cod_pizza;
+    Categoria categoria;
+    int unidades;
+    char fecha_venta[11];
+};
+
+venta crearVenta();
+
+Categoria asignarCategoria(Codigo c);
+
+/*-----------------------------------------------------------*/
+
+/*-------------------Listas----------------------------------*/
 
 class NodoLista
 {
@@ -52,5 +84,6 @@ public:
     void recorrerLista();
 };
 
+/*-----------------------------------------------------------*/
 
 #endif // NAPOLI_H

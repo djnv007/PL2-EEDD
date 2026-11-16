@@ -1,5 +1,54 @@
 #include "napoli.h"
 
+/*---------------------Centros-------------------------------*/
+
+centro crearCentro(){
+    centro c;
+    lista ventas;
+    c.id_centro= 100+ rand()%900;
+    c.localidad= rand()% N_LOCALIDADES;
+    c.ventas= ventas;
+
+    return c;
+}
+
+
+/*-----------------------------------------------------------*/
+
+/*-------------------Ventas----------------------------------*/
+
+venta crearVenta(){
+    venta v;
+    v.id_centro
+    v.id_venta
+    v.cod_pizza= rand()%8;
+    v.categoria= asignarCategoria();
+    v.unidades= 1+ rand()%20;
+    v.fecha_venta;
+
+    return v;
+}
+
+Categoria asignarCategoria(Codigo c){
+    if (c==NP01 || c==NP02){
+        return Tradicional;
+    }
+    else if (c==NP03 || c=NP04){
+        return Carne;
+    }
+    else if (c==NP05 || c=NP06){
+        return Verduras;
+    }
+    else if (c==NP07 || c=NP08){
+        return Quesos;
+    }
+    else{return NULL;}
+
+}
+
+/*-----------------------------------------------------------*/
+
+/*-------------------Listas----------------------------------*/
 
 lista::~lista()
 {
