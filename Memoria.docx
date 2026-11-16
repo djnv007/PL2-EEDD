@@ -3,8 +3,8 @@ PL2-EEDD
   la memoria definitiva, es para que no se haga bola, a medida que hagamos algo lo rellenamos.
 
 Tareas hechas por Dylam:
-  -
-  -
+  -creación del struct centro
+  -implementacion de lista simplemente enlazada con memoria dinámica
 
 Problemas encontrados y solución:
 
