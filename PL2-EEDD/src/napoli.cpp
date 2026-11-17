@@ -3,9 +3,9 @@
 #include <iostream>
 
 using namespace std;
+
 /*---------------------Auxiliares Texto----------------------*/
-const char* localidadToString(Localidad l)
-{
+const char* localidadToString(Localidad l) {
     const char* nombres[N_LOCALIDADES] = {
         "MOSTOLES", "ALCALA", "LEGANES", "FUENLABRADA", "GETAFE",
         "ALCORCON", "TORREJON", "PARLA", "ALCOBENDAS", "COSLADA",
@@ -16,46 +16,35 @@ const char* localidadToString(Localidad l)
     return "DESCONOCIDA";
 }
 
-const char* codigoToString(Codigo c)
-{
+const char* codigoToString(Codigo c) {
     const char* codigos[8] = {"NP01", "NP02", "NP03", "NP04", "NP05", "NP06", "NP07", "NP08"};
     if (c >= 0 && c < 8) return codigos[c];
     return "NP00";
 }
 
-const char* categoriaToString(Categoria cat)
-{
+const char* categoriaToString(Categoria cat) {
     const char* cats[4] = {"Tradicional", "Carne", "Verduras", "Quesos"};
     if (cat >= 0 && cat < 4) return cats[cat];
     return "Desconocida";
 }
 
-
-<<<<<<< HEAD
-centro crearCentro(Localidad loc)
-{
+/*---------------------Centros-------------------------------*/
+centro crearCentro(Localidad loc) {
     centro c;
     c.id_centro = 100 + rand() % 900;
     c.localidad = loc;
     return c;
 }
 
-
-=======
->>>>>>> 3eaaf0e1e385932712f38cf2a5a55667116d639e
-
 /*-------------------Ventas----------------------------------*/
-
-void generarFechaAleatoria(char fecha[])
-{
+void generarFechaAleatoria(char fecha[]) {
     int diasMes[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     int mes = 1 + rand() % 12;
     int dia = 1 + rand() % diasMes[mes - 1];
     sprintf(fecha, "%02d-%02d-2026", dia, mes);
 }
 
-venta crearVenta(int id_centro_destino)
-{
+venta crearVenta(int id_centro_destino) {
     venta v;
     static int contador = 10000;
 
@@ -71,297 +60,166 @@ venta crearVenta(int id_centro_destino)
     return v;
 }
 
-Categoria asignarCategoria(Codigo c)
-{
-    if (c==NP01 || c==NP02)
-    {
-        return Tradicional;
-    }
-    else if (c==NP03 || c==NP04)
-    {
-        return Carne;
-    }
-    else if (c==NP05 || c==NP06)
-    {
-        return Verduras;
-    }
-    else if (c==NP07 || c==NP08)
-    {
-        return Quesos;
-    }
-
-    return Tradicional;
-}
-/*-----------------------------------------------------------*/
-
-/*-------------------Listas----------------------------------*/
-
-lista::~lista()
-{
-    NodoLista* aux;
-    while(cabeza!=NULL){
-        aux=cabeza;
-        cabeza= cabeza->siguiente;
-        delete aux;
-    }
+Categoria asignarCategoria(Codigo c) {
+    if (c == NP01 || c == NP02) return Tradicional;
+    if (c == NP03 || c == NP04) return Carne;
+    if (c == NP05 || c == NP06) return Verduras;
+    return Quesos;
 }
 
-void lista:: insertarNodo(venta v)
-{
-    NodoLista* aux;
-    aux= new NodoLista(v);
-    if(listaVacia())
-    {
-        cabeza=aux;
-        final=aux;
-    }
-    else
-    {
-        final->siguiente=aux;
-        final=aux;
-    }
-
-}
-
-void lista::borrarNodo(venta v)
-{
-    actual = cabeza;
-    NodoLista* anterior;
-    while((strcmp(actual->valor.id_venta,v.id_venta)!=0)&&(actual->siguiente!=NULL))
-    {
-        anterior=actual;
-        actual= actual->siguiente;
-    }
-    if(strcmp(actual->valor.id_venta,v.id_venta))
-    {
-        if(actual==cabeza)
-        {
-            cabeza= actual->siguiente;
-        }
-        else
-        {
-            anterior->siguiente= actual->siguiente;
-            if(actual== final)
-            {
-                final=anterior;
-            };
-        }
-        actual->siguiente=NULL;
-        delete actual;
-
-    }
-}
-
-bool lista:: listaVacia()
-{
-    return (cabeza==NULL);
-}
-
-void lista::esCabeza()
-{
-    actual=cabeza;
-}
-void lista:: esFinal()
-{
-    actual=final;
-}
-void lista::esSiguiente()
-{
-    actual= actual->siguiente;
-}
-bool lista::esActual()
-{
-    return (actual!=NULL);
-}
-venta lista::valorActual(){
-    return actual->valor;
-};
-void lista::recorrerLista(){
-    NodoLista* aux;
-    aux = cabeza;
-    while(aux){
-        cout<<aux->valor.id_venta<<endl;
-        aux= aux->siguiente;
-    }
-}
-
-/*---------------------Centros-------------------------------*/
-
-centro crearCentro()
-{
-    centro c;
-    c.id_centro= 100+ rand()%900;
-    c.localidad= static_cast<Localidad>(rand()% N_LOCALIDADES);
-
-    return c;
-}
-
-
-/*-----------------------------------------------------------*/
-
-/*-------------------ABB----------------------------------*/
-NodoABB::NodoABB(centro c,
-                 NodoABB* izq,
-                 NodoABB* der)
-{
+/*-------------------ABB-------------------------------------*/
+NodoABB::NodoABB(const centro& c, NodoABB* izq, NodoABB* der) {
     datos = c;
-
     izquierda = izq;
-
     derecha = der;
 }
-ABB::ABB()
-{
+
+ABB::ABB() {
     raiz = NULL;
 }
 
-bool ABB::arbolVacio()
-{
+ABB::~ABB() {
+    destruirArbolRec(raiz);
+}
+
+void ABB::destruirArbolRec(NodoABB* &nodo) {
+    if (nodo != NULL) {
+        destruirArbolRec(nodo->izquierda);
+        destruirArbolRec(nodo->derecha);
+        nodo->datos.ventas.vaciar();
+        delete nodo;
+        nodo = NULL;
+    }
+}
+
+bool ABB::arbolVacio() {
     return raiz == NULL;
 }
-void ABB::insertarCentro(centro c)
-{
+
+void ABB::insertarCentro(const centro& c) {
     insertarCentroRec(raiz, c);
 }
-void ABB::insertarCentroRec(NodoABB* &nodo, centro c)
-{
-    if(nodo == NULL)
-    {
+
+void ABB::insertarCentroRec(NodoABB* &nodo, const centro& c) {
+    if (nodo == NULL) {
         nodo = new NodoABB(c);
-    }
-    else if(c.id_centro < nodo->datos.id_centro)
-    {
+    } else if (c.id_centro < nodo->datos.id_centro) {
         insertarCentroRec(nodo->izquierda, c);
-    }
-    else if(c.id_centro > nodo->datos.id_centro)
-    {
+    } else if (c.id_centro > nodo->datos.id_centro) {
         insertarCentroRec(nodo->derecha, c);
     }
 }
-<<<<<<< HEAD
-void ABB::mostrarInorden()
-{
+
+void ABB::mostrarInorden() {
     mostrarInordenRec(raiz);
 }
+
 void ABB::mostrarInordenRec(NodoABB* nodo)
 {
-    if(nodo != NULL)
+    if (nodo != NULL)
     {
         mostrarInordenRec(nodo->izquierda);
-
-        cout << nodo->datos.id_centro << endl;
-
+        cout << "Centro " << nodo->datos.id_centro
+             << " (" << localidadToString(nodo->datos.localidad) << ")"
+             << " -> Ventas: " << nodo->datos.ventas.contarVentas() << endl;
         mostrarInordenRec(nodo->derecha);
     }
 }
-NodoABB* ABB::buscarCentro(int id)
-{
+
+NodoABB* ABB::buscarCentro(int id) {
     return buscarCentroRec(raiz, id);
 }
-NodoABB* ABB::buscarCentroRec(NodoABB* nodo, int id)
-{
-    if(nodo == NULL)
-    {
-        return NULL;
-    }
 
-    if(id == nodo->datos.id_centro)
-    {
-        return nodo;
-    }
-
-    if(id < nodo->datos.id_centro)
-    {
-        return buscarCentroRec(nodo->izquierda, id);
-    }
-
+NodoABB* ABB::buscarCentroRec(NodoABB* nodo, int id) {
+    if (nodo == NULL) return NULL;
+    if (id == nodo->datos.id_centro) return nodo;
+    if (id < nodo->datos.id_centro) return buscarCentroRec(nodo->izquierda, id);
     return buscarCentroRec(nodo->derecha, id);
 }
-/*-----------------------------------------------------------*/
 
+void ABB::obtenerIds(int ids[], int& total) {
+    total = 0;
+    obtenerIdsRec(raiz, ids, total);
+}
+
+void ABB::obtenerIdsRec(NodoABB* nodo, int ids[], int& indice) {
+    if (nodo != NULL) {
+        obtenerIdsRec(nodo->izquierda, ids, indice);
+        ids[indice] = nodo->datos.id_centro;
+        indice++;
+        obtenerIdsRec(nodo->derecha, ids, indice);
+    }
+}
+bool ABB::insertarVentaEnCentro(int id_centro, venta v)
+{
+    NodoABB* nodo = buscarCentro(id_centro);
+    if (nodo == NULL) return false;
+    nodo->datos.ventas.insertarNodo(v);
+    return true;
+}
+
+void ABB::mostrarResumen()
+{
+    mostrarInordenRec(raiz);
+}
 /*-------------------Listas----------------------------------*/
-
-lista::~lista()
-{
-    //dtor
+lista::~lista() {
+    vaciar();
 }
 
-
-void lista:: insertarNodo(venta v)
-{
+void lista::vaciar() {
     NodoLista* aux;
-    aux= new NodoLista(v);
-    if(listaVacia())
-    {
-        cabeza=aux;
-        final=aux;
+    while (cabeza != NULL) {
+        aux = cabeza;
+        cabeza = cabeza->siguiente;
+        delete aux;
     }
-    else
-    {
-        final->siguiente=aux;
-        final=aux;
-    }
-
+    final = NULL;
+    actual = NULL;
 }
 
-/*void lista::borrarNodo(venta v)
-{
+void lista::insertarNodo(venta v) {
+    NodoLista* aux = new NodoLista(v);
+    if (listaVacia()) {
+        cabeza = aux;
+        final = aux;
+    } else {
+        final->siguiente = aux;
+        final = aux;
+    }
+}
+
+bool lista::listaVacia() {
+    return (cabeza == NULL);
+}
+
+void lista::esCabeza() {
     actual = cabeza;
-    NodoLista* anterior;
-    while((actual->siguiente!=v)&&(actual->siguiente!=NULL))
-    {
-        anterior=actual;
-        actual= actual->siguiente;
-    }
-    if(actual->siguiente->valor==v)
-    {
-        if(actual==cabeza)
-        {
-            cabeza= actual->siguiente;
-        }
-        else
-        {
-            anterior->siguiente= actual->siguiente;
-            if(actual== final)
-            {
-                final=anterior;
-            };
-        }
-        actual->siguiente=NULL;
-        delete actual;
-
-    }
-}*/
-
-bool lista:: listaVacia()
-{
-    return (cabeza==NULL);
 }
 
-void lista::esCabeza()
-{
-    actual=cabeza;
+void lista::esFinal() {
+    actual = final;
 }
-void lista:: esFinal()
-{
-    actual=final;
+
+void lista::esSiguiente() {
+    if (actual != NULL) actual = actual->siguiente;
 }
-void lista::esSiguiente()
-{
-    actual= actual->siguiente;
+
+bool lista::esActual() {
+    return (actual != NULL);
 }
-bool lista::esActual()
-{
-    return (actual!=NULL);
-}
-venta lista::valorActual()
-{
+
+venta lista::valorActual() {
     return actual->valor;
 }
-
-void lista::recorrerLista()
+int lista::contarVentas()
 {
+    int contador = 0;
+    NodoLista* aux = cabeza;
+    while (aux != NULL)
+    {
+        contador++;
+        aux = aux->siguiente;
+    }
+    return contador;
 }
-=======
-/*-----------------------------------------------------------*/
->>>>>>> 3eaaf0e1e385932712f38cf2a5a55667116d639e

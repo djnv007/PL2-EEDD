@@ -1,28 +1,19 @@
 #ifndef NAPOLI_H
 #define NAPOLI_H
-#include<cstring>
-#include<ctime>
-#include<cstdlib>
-#include<cstdio>
-#include<iostream>
+
+#include <cstring>
+#include <ctime>
+#include <cstdlib>
+
 #define N_CENTROS 10
 #define N_VENTAS 30
 #define N_LOCALIDADES 20
 
-using namespace std;
-
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 3eaaf0e1e385932712f38cf2a5a55667116d639e
-
 /*-------------------Ventas----------------------------------*/
+enum Codigo {NP01, NP02, NP03, NP04, NP05, NP06, NP07, NP08};
+enum Categoria {Tradicional, Carne, Verduras, Quesos};
 
-enum Codigo{NP01,NP02,NP03,NP04,NP05,NP06,NP07,NP08};
-enum Categoria{Tradicional,Carne,Verduras,Quesos};
-
-struct venta{
+struct venta {
     int id_centro;
     char id_venta[7];
     Codigo cod_pizza;
@@ -33,67 +24,56 @@ struct venta{
 
 venta crearVenta(int id_centro_destino);
 Categoria asignarCategoria(Codigo c);
-<<<<<<< HEAD
 void generarFechaAleatoria(char fecha[]);
 const char* codigoToString(Codigo c);
 const char* categoriaToString(Categoria cat);
 
-
-=======
-/*-----------------------------------------------------------*/
->>>>>>> 3eaaf0e1e385932712f38cf2a5a55667116d639e
-
 /*-------------------Listas----------------------------------*/
-
-class NodoLista
-{
+class NodoLista {
 private:
     venta valor;
     NodoLista* siguiente;
     friend class lista;
 
 public:
-    NodoLista(venta v, NodoLista*sig=NULL){
-        valor=v;
-        siguiente=sig;
+    NodoLista(venta v, NodoLista* sig = NULL) {
+        valor = v;
+        siguiente = sig;
     }
 };
 
-class lista
-{
+class lista {
 private:
     NodoLista* cabeza;
     NodoLista* final;
     NodoLista* actual;
+
 public:
-    lista()
-{
-    cabeza = NULL;
-    final = NULL;
-    actual = NULL;
-}
-
+    lista() {
+        cabeza = NULL;
+        final = NULL;
+        actual = NULL;
+    }
     ~lista();
-
+    int contarVentas();
     void insertarNodo(venta v);
-
-
+    void vaciar();
     bool listaVacia();
     void esCabeza();
     void esFinal();
     void esSiguiente();
     bool esActual();
-    void vaciar();
     venta valorActual();
-    void recorrerLista();
 };
+
 /*---------------------Centros-------------------------------*/
+enum Localidad {
+    Mostoles, Alcala, Leganes, Fuenlabrada, Getafe, Alcorcon, Torrejon, Parla,
+    Alcobendas, Coslada, Pozuelo, Rivas, Valdemoro, Majadahonda, Aranjuez, Arganda,
+    Boadilla, Pinto, Colmenar, TresCantos
+};
 
-enum Localidad {Mostoles, Alcala, Leganes, Fuenlabrada, Getafe, Alcorcon, Torrejon, Parla,
-Alcobendas, Coslada, Pozuelo, Rivas, Valdemoro, Majadahonda, Aranjuez, Arganda,
-Boadilla, Pinto, Colmenar, TresCantos};
-
-struct centro{
+struct centro {
     int id_centro;
     Localidad localidad;
     lista ventas;
@@ -101,9 +81,9 @@ struct centro{
 
 centro crearCentro(Localidad loc);
 const char* localidadToString(Localidad l);
+
 /*-------------------ABB----------------------------------*/
-class NodoABB
-{
+class NodoABB {
 private:
     centro datos;
     NodoABB* izquierda;
@@ -114,8 +94,7 @@ public:
     NodoABB(const centro& c, NodoABB* izq = NULL, NodoABB* der = NULL);
 };
 
-class ABB
-{
+class ABB {
 private:
     NodoABB* raiz;
 
@@ -134,64 +113,8 @@ public:
     NodoABB* buscarCentro(int id);
     void mostrarInorden();
     void obtenerIds(int ids[], int& total);
+    bool insertarVentaEnCentro(int id_centro, venta v);
+    void mostrarResumen();
 };
-
-/*-----------------------------------------------------------*/
-
-/*---------------------Centros-------------------------------*/
-
-enum Localidad {Mostoles, Alcala, Leganes, Fuenlabrada, Getafe, Alcorcon, Torrejon, Parla,
-                Alcobendas, Coslada, Pozuelo, Rivas, Valdemoro, Majadahonda, Aranjuez, Arganda,
-                Boadilla, Pinto, Colmenar, TresCantos};
-
-struct centro{
-    int id_centro;
-    Localidad localidad;
-    lista ventas;
-};
-
-centro crearCentro();
-
-
-/*-----------------------------------------------------------*/
-
-/*-------------------ABB----------------------------------*/
-class NodoABB
-{
-private:
-    centro datos;
-
-    NodoABB* izquierda;
-    NodoABB* derecha;
-
-    friend class ABB;
-
-public:
-    NodoABB(centro c,
-            NodoABB* izq = NULL,
-            NodoABB* der = NULL);
-};
-
-
-
-class ABB
-{
-private:
-    NodoABB* raiz;
-    void insertarCentroRec(NodoABB* &nodo, centro c);
-    void mostrarInordenRec(NodoABB* nodo);
-
-public:
-    ABB();
-
-    bool arbolVacio();
-
-    void insertarCentro(centro c);
-
-    NodoABB* buscarCentro(int id);
-
-    void mostrarInorden();
-};
-/*-----------------------------------------------------------*/
 
 #endif // NAPOLI_H
