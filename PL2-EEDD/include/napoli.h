@@ -3,27 +3,14 @@
 #include<cstring>
 #include<ctime>
 #include<cstdlib>
+#include<cstdio>
+#include<iostream>
 #define N_CENTROS 10
 #define N_VENTAS 30
 #define N_LOCALIDADES 20
 
+using namespace std;
 
-/*---------------------Centros-------------------------------*/
-
-enum Localidad {Mostoles, Alcala, Leganes, Fuenlabrada, Getafe, Alcorcon, Torrejon, Parla,
-Alcobendas, Coslada, Pozuelo, Rivas, Valdemoro, Majadahonda, Aranjuez, Arganda,
-Boadilla, Pinto, Colmenar, Tres Cantos};
-
-struct centro{
-    int id_centro;
-    Localidad localidad;
-    lista ventas;
-};
-
-centro crearCentro();
-
-
-/*-----------------------------------------------------------*/
 
 /*-------------------Ventas----------------------------------*/
 
@@ -42,45 +29,6 @@ struct venta{
 venta crearVenta();
 
 Categoria asignarCategoria(Codigo c);
-/*-----------------------------------------------------------*/
-
-/*-------------------ABB----------------------------------*/
-class NodoABB
-{
-private:
-    centro datos;
-
-    NodoABB* izquierda;
-    NodoABB* derecha;
-
-    friend class ABB;
-
-public:
-    NodoABB(centro c,
-            NodoABB* izq = NULL,
-            NodoABB* der = NULL);
-};
-
-
-
-class ABB
-{
-private:
-    NodoABB* raiz;
-    void insertarCentroRec(NodoABB* &nodo, centro c);
-    void mostrarInordenRec(NodoABB* nodo);
-
-public:
-    ABB();
-
-    bool arbolVacio();
-
-    void insertarCentro(centro c);
-
-    NodoABB* buscarCentro(int id);
-
-    void mostrarInorden();
-};
 /*-----------------------------------------------------------*/
 
 /*-------------------Listas----------------------------------*/
@@ -125,6 +73,62 @@ public:
     void recorrerLista();
 };
 
+/*-----------------------------------------------------------*/
+
+/*---------------------Centros-------------------------------*/
+
+enum Localidad {Mostoles, Alcala, Leganes, Fuenlabrada, Getafe, Alcorcon, Torrejon, Parla,
+                Alcobendas, Coslada, Pozuelo, Rivas, Valdemoro, Majadahonda, Aranjuez, Arganda,
+                Boadilla, Pinto, Colmenar, TresCantos};
+
+struct centro{
+    int id_centro;
+    Localidad localidad;
+    lista ventas;
+};
+
+centro crearCentro();
+
+
+/*-----------------------------------------------------------*/
+
+/*-------------------ABB----------------------------------*/
+class NodoABB
+{
+private:
+    centro datos;
+
+    NodoABB* izquierda;
+    NodoABB* derecha;
+
+    friend class ABB;
+
+public:
+    NodoABB(centro c,
+            NodoABB* izq = NULL,
+            NodoABB* der = NULL);
+};
+
+
+
+class ABB
+{
+private:
+    NodoABB* raiz;
+    void insertarCentroRec(NodoABB* &nodo, centro c);
+    void mostrarInordenRec(NodoABB* nodo);
+
+public:
+    ABB();
+
+    bool arbolVacio();
+
+    void insertarCentro(centro c);
+
+    NodoABB* buscarCentro(int id);
+
+    void mostrarInorden();
+};
 /*-----------------------------------------------------------*/
 
 #endif // NAPOLI_H

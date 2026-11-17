@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1794928522 source:d:\estructuras-de-datos\pl2-eedd\pl2-eedd\main.cpp
+	<napoli.h>
+	<iostream>
+
+1794930338 d:\estructuras-de-datos\pl2-eedd\pl2-eedd\include\napoli.h
+	<cstring>
+	<ctime>
+	<cstdlib>
+	<cstdio>
+	<iostream>
+
+1794930696 source:d:\estructuras-de-datos\pl2-eedd\pl2-eedd\src\napoli.cpp
+	"napoli.h"
+
