@@ -2,7 +2,8 @@
 
 /*---------------------Centros-------------------------------*/
 
-centro crearCentro(){
+centro crearCentro()
+{
     centro c;
     lista ventas;
     c.id_centro= 100+ rand()%900;
@@ -17,33 +18,46 @@ centro crearCentro(){
 
 /*-------------------Ventas----------------------------------*/
 
-venta crearVenta(){
+venta crearVenta()
+{
     venta v;
-    v.id_centro
-    v.id_venta
-    v.cod_pizza= rand()%8;
-    v.categoria= asignarCategoria();
-    v.unidades= 1+ rand()%20;
-    v.fecha_venta;
+
+    static int contador = 10000;
+
+    sprintf(v.id_venta, "V%05d", contador);
+    contador++;
+
+    v.cod_pizza = static_cast<Codigo>(rand()%8);
+
+    v.categoria = asignarCategoria(v.cod_pizza);
+
+    v.unidades = 1 + rand()%20;
+
+    strcpy(v.fecha_venta, "01-01-2026");
 
     return v;
 }
 
-Categoria asignarCategoria(Codigo c){
-    if (c==NP01 || c==NP02){
+Categoria asignarCategoria(Codigo c)
+{
+    if (c==NP01 || c==NP02)
+    {
         return Tradicional;
     }
-    else if (c==NP03 || c==NP04){
+    else if (c==NP03 || c==NP04)
+    {
         return Carne;
     }
-    else if (c==NP05 || c==NP06){
+    else if (c==NP05 || c==NP06)
+    {
         return Verduras;
     }
-    else if (c==NP07 || c==NP08){
+    else if (c==NP07 || c==NP08)
+    {
         return Quesos;
     }
-    else{return NULL;}
 
+    return Tradicional;
 }
 /*-----------------------------------------------------------*/
 
@@ -77,34 +91,45 @@ lista::~lista()
 }
 ~lista();
 
-void lista:: insertarNodo(int v){
+void lista:: insertarNodo(venta v)
+{
     NodoLista* aux;
     aux= new NodoLista(v);
-    if(listaVacia()){
+    if(listaVacia())
+    {
         cabeza=aux;
         final=aux;
     }
-    else{
+    else
+    {
         final->siguiente=aux;
         final=aux;
     }
 
 }
 
-void lista::borrarNodo(int v){
+void lista::borrarNodo(venta v)
+{
     actual = cabeza;
     NodoLista* anterior;
-    while((actual->siguiente!=v)&&(actual->siguiente!=NULL)){
+    while((actual->siguiente!=v)&&(actual->siguiente!=NULL))
+    {
         anterior=actual;
         actual= actual->siguiente;
     }
-    if(actual->siguiente->valor==v){
-        if(actual==cabeza){
+    if(actual->siguiente->valor==v)
+    {
+        if(actual==cabeza)
+        {
             cabeza= actual->siguiente;
         }
-        else{
+        else
+        {
             anterior->siguiente= actual->siguiente;
-            if(actual== final){final=anterior};
+            if(actual== final)
+            {
+                final=anterior
+            };
         }
         actual->siguiente=NULL;
         delete actual;
@@ -112,20 +137,25 @@ void lista::borrarNodo(int v){
     }
 }
 
-bool lista:: listaVacia(){
+bool lista:: listaVacia()
+{
     return (cabeza==NULL);
 }
 
-void lista::esCabeza(){
+void lista::esCabeza()
+{
     actual=cabeza;
 }
-void lista:: esFinal(){
+void lista:: esFinal()
+{
     actual=final;
 }
-void lista::esSiguiente(){
+void lista::esSiguiente()
+{
     actual= actual->siguiente;
 }
-bool lista::esActual(){
+bool lista::esActual()
+{
     return (actual!=NULL;)
 }
 int lista::valorActual();

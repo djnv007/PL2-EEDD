@@ -1,6 +1,8 @@
 #ifndef NAPOLI_H
 #define NAPOLI_H
-
+#include<cstring>
+#include<ctime>
+#include<cstdlib>
 #define N_CENTROS 10
 #define N_VENTAS 30
 #define N_LOCALIDADES 20
@@ -82,12 +84,12 @@ public:
 class NodoLista
 {
 private:
-    int valor;
+    venta valor;
     NodoLista* siguiente;
     friend class lista;
 
 public:
-    NodoLista(int v, NodoLista*sig=NULL){
+    NodoLista(venta v, NodoLista*sig=NULL){
         valor=v;
         siguiente=sig;
     }
@@ -107,14 +109,15 @@ public:
     }
     ~lista();
 
-    void insertarNodo(int v);
-    void borrarNodo(int v);
+    void insertarNodo(venta v);
+    void borrarNodo(venta v);
     bool listaVacia();
     void esCabeza();
     void esFinal();
     void esSiguiente();
     bool esActual();
-    int valorActual();
+    bool buscarVenta(venta v);
+    venta valorActual();
     void recorrerLista();
 };
 
