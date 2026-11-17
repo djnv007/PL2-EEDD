@@ -1,5 +1,6 @@
 #include "napoli.h"
 #include <iostream>
+#include <iomanip>
 
 using namespace std;
 
@@ -133,6 +134,33 @@ int main()
                 }
                 break;
             }
+            case 4:
+            {
+                char idBuscar[10];
+                cout << "\nIntroduzca el ID de la venta a buscar (ej. V10000): ";
+                cin >> setw(10) >> idBuscar;
+
+                venta vEncontrada;
+                Localidad locCentro;
+
+                if (arbol.buscarVentaGlobal(idBuscar, vEncontrada, locCentro))
+                {
+                    cout << "\n--- VENTA LOCALIZADA ---" << endl;
+                    cout << "ID Venta   : " << vEncontrada.id_venta << endl;
+                    cout << "Centro     : " << vEncontrada.id_centro
+                         << " (" << localidadToString(locCentro) << ")" << endl;
+                    cout << "Pizza      : " << codigoToString(vEncontrada.cod_pizza)
+                         << " (" << categoriaToString(vEncontrada.categoria) << ")" << endl;
+                    cout << "Unidades   : " << vEncontrada.unidades << endl;
+                    cout << "Fecha      : " << vEncontrada.fecha_venta << endl;
+                }
+                else
+                {
+                    cout << "No se ha encontrado ninguna venta con el ID " << idBuscar << "." << endl;
+                }
+                break;
+            }
+
             case 0:
                 cout << "\nLiberando memoria y saliendo del programa..." << endl;
                 break;

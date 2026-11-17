@@ -173,6 +173,28 @@ bool ABB::mostrarVentasCentro(int id)
     nodo->datos.ventas.mostrarVentas();
     return true;
 }
+bool ABB::buscarVentaGlobal(const char id_venta[], venta& encontrada, Localidad& locCentro)
+{
+    return buscarVentaRec(raiz, id_venta, encontrada, locCentro);
+}
+
+bool ABB::buscarVentaRec(NodoABB* nodo, const char id_venta[], venta& encontrada, Localidad& locCentro)
+{
+    if (nodo == NULL) return false;
+
+    if (nodo->datos.ventas.buscarVenta(id_venta, encontrada))
+    {
+        locCentro = nodo->datos.localidad;
+        return true;
+    }
+
+    if (buscarVentaRec(nodo->izquierda, id_venta, encontrada, locCentro))
+    {
+        return true;
+    }
+
+    return buscarVentaRec(nodo->derecha, id_venta, encontrada, locCentro);
+}
 /*-------------------Listas----------------------------------*/
 lista::~lista() {
     vaciar();
@@ -260,3 +282,18 @@ void lista::mostrarVentas()
         aux = aux->siguiente;
     }
 }
+bool lista::buscarVenta(const char id_venta[], venta& encontrada)
+{
+    NodoLista* aux = cabeza;
+    while (aux != NULL)
+    {
+        if (strcmp(aux->valor.id_venta, id_venta) == 0)
+        {
+            encontrada = aux->valor;
+            return true;
+        }
+        aux = aux->siguiente;
+    }
+    return false;
+}
+

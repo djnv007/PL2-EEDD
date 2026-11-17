@@ -13,12 +13,13 @@
 1794930696 source:d:\estructuras-de-datos\pl2-eedd\pl2-eedd\src\napoli.cpp
 	"napoli.h"
 
-1794951100 source:c:\users\noahf\desktop\uni\segundo_curso\primer_cuatri\estructuras_de_datos\lab\pl2-eedd\pl2-eedd\src\napoli.cpp
+1794954973 source:c:\users\noahf\desktop\uni\segundo_curso\primer_cuatri\estructuras_de_datos\lab\pl2-eedd\pl2-eedd\src\napoli.cpp
 	"napoli.h"
 	<cstdio>
 	<iostream>
+	<iomanip>
 
-1794951136 c:\users\noahf\desktop\uni\segundo_curso\primer_cuatri\estructuras_de_datos\lab\pl2-eedd\pl2-eedd\include\napoli.h
+1794955088 c:\users\noahf\desktop\uni\segundo_curso\primer_cuatri\estructuras_de_datos\lab\pl2-eedd\pl2-eedd\include\napoli.h
 	<cstring>
 	<ctime>
 	<cstdlib>

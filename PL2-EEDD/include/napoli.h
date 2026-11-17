@@ -65,6 +65,7 @@ public:
     bool esActual();
     venta valorActual();
     void mostrarVentas();
+    bool buscarVenta(const char id_venta[], venta& encontrada);
 };
 
 /*---------------------Centros-------------------------------*/
@@ -104,6 +105,7 @@ private:
     NodoABB* buscarCentroRec(NodoABB* nodo, int id);
     void obtenerIdsRec(NodoABB* nodo, int ids[], int& indice);
     void destruirArbolRec(NodoABB* &nodo);
+    bool buscarVentaRec(NodoABB* nodo, const char id_venta[], venta& encontrada, Localidad& locCentro);
 
 public:
     ABB();
@@ -117,6 +119,7 @@ public:
     bool insertarVentaEnCentro(int id_centro, venta v);
     void mostrarResumen();
     bool mostrarVentasCentro(int id);
+    bool buscarVentaGlobal(const char id_venta[], venta& encontrada, Localidad& locCentro);
 
 };
 
