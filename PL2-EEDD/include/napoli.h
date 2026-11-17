@@ -64,6 +64,7 @@ public:
     void esSiguiente();
     bool esActual();
     venta valorActual();
+    void mostrarVentas();
 };
 
 /*---------------------Centros-------------------------------*/
@@ -115,6 +116,8 @@ public:
     void obtenerIds(int ids[], int& total);
     bool insertarVentaEnCentro(int id_centro, venta v);
     void mostrarResumen();
+    bool mostrarVentasCentro(int id);
+
 };
 
 #endif // NAPOLI_H

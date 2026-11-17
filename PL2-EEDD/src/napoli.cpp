@@ -1,6 +1,7 @@
 #include "napoli.h"
 #include <cstdio>
 #include <iostream>
+#include <iomanip>
 
 using namespace std;
 
@@ -162,6 +163,16 @@ void ABB::mostrarResumen()
 {
     mostrarInordenRec(raiz);
 }
+bool ABB::mostrarVentasCentro(int id)
+{
+    NodoABB* nodo = buscarCentro(id);
+    if (nodo == NULL) return false;
+
+    cout << "\nCENTRO " << nodo->datos.id_centro
+         << " - " << localidadToString(nodo->datos.localidad) << endl;
+    nodo->datos.ventas.mostrarVentas();
+    return true;
+}
 /*-------------------Listas----------------------------------*/
 lista::~lista() {
     vaciar();
@@ -222,4 +233,30 @@ int lista::contarVentas()
         aux = aux->siguiente;
     }
     return contador;
+}
+void lista::mostrarVentas()
+{
+    if (listaVacia())
+    {
+        cout << "Este centro no tiene ventas registradas." << endl;
+        return;
+    }
+
+    cout << left << setw(10) << "Venta"
+         << setw(8) << "Pizza"
+         << setw(14) << "Categoria"
+         << setw(10) << "Unidades"
+         << "Fecha" << endl;
+    cout << "----------------------------------------------------" << endl;
+
+    NodoLista* aux = cabeza;
+    while (aux != NULL)
+    {
+        cout << left << setw(10) << aux->valor.id_venta
+             << setw(8) << codigoToString(aux->valor.cod_pizza)
+             << setw(14) << categoriaToString(aux->valor.categoria)
+             << setw(10) << aux->valor.unidades
+             << aux->valor.fecha_venta << endl;
+        aux = aux->siguiente;
+    }
 }
