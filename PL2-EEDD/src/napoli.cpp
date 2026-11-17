@@ -81,6 +81,25 @@ bool ABB::arbolVacio()
 {
     return raiz == NULL;
 }
+void ABB::insertarCentro(centro c)
+{
+    insertarCentroRec(raiz, c);
+}
+void ABB::insertarCentroRec(NodoABB* &nodo, centro c)
+{
+    if(nodo == NULL)
+    {
+        nodo = new NodoABB(c);
+    }
+    else if(c.id_centro < nodo->datos.id_centro)
+    {
+        insertarCentroRec(nodo->izquierda, c);
+    }
+    else if(c.id_centro > nodo->datos.id_centro)
+    {
+        insertarCentroRec(nodo->derecha, c);
+    }
+}
 /*-----------------------------------------------------------*/
 
 /*-------------------Listas----------------------------------*/

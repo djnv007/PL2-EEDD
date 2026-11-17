@@ -67,6 +67,7 @@ class ABB
 {
 private:
     NodoABB* raiz;
+    void insertarCentroRec(NodoABB* &nodo, centro c);
 
 public:
     ABB();
