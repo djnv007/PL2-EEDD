@@ -3,40 +3,68 @@
 #include <iostream>
 
 using namespace std;
+/*---------------------Auxiliares Texto----------------------*/
+const char* localidadToString(Localidad l)
+{
+    const char* nombres[N_LOCALIDADES] = {
+        "MOSTOLES", "ALCALA", "LEGANES", "FUENLABRADA", "GETAFE",
+        "ALCORCON", "TORREJON", "PARLA", "ALCOBENDAS", "COSLADA",
+        "POZUELO", "RIVAS", "VALDEMORO", "MAJADAHONDA", "ARANJUEZ",
+        "ARGANDA", "BOADILLA", "PINTO", "COLMENAR", "TRES CANTOS"
+    };
+    if (l >= 0 && l < N_LOCALIDADES) return nombres[l];
+    return "DESCONOCIDA";
+}
+
+const char* codigoToString(Codigo c)
+{
+    const char* codigos[8] = {"NP01", "NP02", "NP03", "NP04", "NP05", "NP06", "NP07", "NP08"};
+    if (c >= 0 && c < 8) return codigos[c];
+    return "NP00";
+}
+
+const char* categoriaToString(Categoria cat)
+{
+    const char* cats[4] = {"Tradicional", "Carne", "Verduras", "Quesos"};
+    if (cat >= 0 && cat < 4) return cats[cat];
+    return "Desconocida";
+}
+
 /*---------------------Centros-------------------------------*/
 
-centro crearCentro()
+centro crearCentro(Localidad loc)
 {
     centro c;
-    lista ventas;
-    c.id_centro= 100+ rand()%900;
-    c.localidad = static_cast<Localidad>(rand()%N_LOCALIDADES);
-    c.ventas= ventas;
-
+    c.id_centro = 100 + rand() % 900;
+    c.localidad = loc;
     return c;
 }
 
 
-/*-----------------------------------------------------------*/
 
 /*-------------------Ventas----------------------------------*/
 
-venta crearVenta()
+void generarFechaAleatoria(char fecha[])
+{
+    int diasMes[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    int mes = 1 + rand() % 12;
+    int dia = 1 + rand() % diasMes[mes - 1];
+    sprintf(fecha, "%02d-%02d-2026", dia, mes);
+}
+
+venta crearVenta(int id_centro_destino)
 {
     venta v;
-
     static int contador = 10000;
 
+    v.id_centro = id_centro_destino;
     sprintf(v.id_venta, "V%05d", contador);
     contador++;
 
-    v.cod_pizza = static_cast<Codigo>(rand()%8);
-
+    v.cod_pizza = static_cast<Codigo>(rand() % 8);
     v.categoria = asignarCategoria(v.cod_pizza);
-
-    v.unidades = 1 + rand()%20;
-
-    strcpy(v.fecha_venta, "01-01-2026");
+    v.unidades = 1 + rand() % 20;
+    generarFechaAleatoria(v.fecha_venta);
 
     return v;
 }

@@ -25,9 +25,12 @@ struct venta{
     char fecha_venta[11];
 };
 
-venta crearVenta();
-
+venta crearVenta(int id_centro_destino);
 Categoria asignarCategoria(Codigo c);
+void generarFechaAleatoria(char fecha[]);
+const char* codigoToString(Codigo c);
+const char* categoriaToString(Categoria cat);
+
 
 
 /*-------------------Listas----------------------------------*/
@@ -63,13 +66,14 @@ public:
     ~lista();
 
     void insertarNodo(venta v);
-    void borrarNodo(venta v);
+
+
     bool listaVacia();
     void esCabeza();
     void esFinal();
     void esSiguiente();
     bool esActual();
-    bool buscarVenta(venta v);
+    void vaciar();
     venta valorActual();
     void recorrerLista();
 };
@@ -85,48 +89,41 @@ struct centro{
     lista ventas;
 };
 
-centro crearCentro();
+centro crearCentro(Localidad loc);
+const char* localidadToString(Localidad l);
 /*-------------------ABB----------------------------------*/
 class NodoABB
 {
 private:
     centro datos;
-
     NodoABB* izquierda;
     NodoABB* derecha;
-
     friend class ABB;
 
 public:
-    NodoABB(centro c,
-            NodoABB* izq = NULL,
-            NodoABB* der = NULL);
+    NodoABB(const centro& c, NodoABB* izq = NULL, NodoABB* der = NULL);
 };
-
-
 
 class ABB
 {
 private:
-
     NodoABB* raiz;
 
-    void insertarCentroRec(NodoABB* &nodo, centro c);
-
+    void insertarCentroRec(NodoABB* &nodo, const centro& c);
     void mostrarInordenRec(NodoABB* nodo);
-
     NodoABB* buscarCentroRec(NodoABB* nodo, int id);
+    void obtenerIdsRec(NodoABB* nodo, int ids[], int& indice);
+    void destruirArbolRec(NodoABB* &nodo);
 
 public:
     ABB();
+    ~ABB();
 
     bool arbolVacio();
-
-    void insertarCentro(centro c);
-
+    void insertarCentro(const centro& c);
     NodoABB* buscarCentro(int id);
-
     void mostrarInorden();
+    void obtenerIds(int ids[], int& total);
 };
 
 /*-----------------------------------------------------------*/
