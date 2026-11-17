@@ -118,6 +118,29 @@ void ABB::mostrarInordenRec(NodoABB* nodo)
         mostrarInordenRec(nodo->derecha);
     }
 }
+NodoABB* ABB::buscarCentro(int id)
+{
+    return buscarCentroRec(raiz, id);
+}
+NodoABB* ABB::buscarCentroRec(NodoABB* nodo, int id)
+{
+    if(nodo == NULL)
+    {
+        return NULL;
+    }
+
+    if(id == nodo->datos.id_centro)
+    {
+        return nodo;
+    }
+
+    if(id < nodo->datos.id_centro)
+    {
+        return buscarCentroRec(nodo->izquierda, id);
+    }
+
+    return buscarCentroRec(nodo->derecha, id);
+}
 /*-----------------------------------------------------------*/
 
 /*-------------------Listas----------------------------------*/
