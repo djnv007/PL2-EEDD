@@ -33,19 +33,40 @@ Categoria asignarCategoria(Codigo c){
     if (c==NP01 || c==NP02){
         return Tradicional;
     }
-    else if (c==NP03 || c=NP04){
+    else if (c==NP03 || c==NP04){
         return Carne;
     }
-    else if (c==NP05 || c=NP06){
+    else if (c==NP05 || c==NP06){
         return Verduras;
     }
-    else if (c==NP07 || c=NP08){
+    else if (c==NP07 || c==NP08){
         return Quesos;
     }
     else{return NULL;}
 
 }
+/*-----------------------------------------------------------*/
 
+/*-------------------ABB----------------------------------*/
+NodoABB::NodoABB(centro c,
+                 NodoABB* izq,
+                 NodoABB* der)
+{
+    datos = c;
+
+    izquierda = izq;
+
+    derecha = der;
+}
+ABB::ABB()
+{
+    raiz = NULL;
+}
+
+bool ABB::arbolVacio()
+{
+    return raiz == NULL;
+}
 /*-----------------------------------------------------------*/
 
 /*-------------------Listas----------------------------------*/

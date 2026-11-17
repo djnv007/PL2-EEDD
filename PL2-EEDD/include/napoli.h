@@ -8,7 +8,7 @@
 
 /*---------------------Centros-------------------------------*/
 
-enum Localidad {Móstoles, Alcalá, Leganés, Fuenlabrada, Getafe, Alcorcón, Torrejón, Parla,
+enum Localidad {Mostoles, Alcala, Leganes, Fuenlabrada, Getafe, Alcorcon, Torrejon, Parla,
 Alcobendas, Coslada, Pozuelo, Rivas, Valdemoro, Majadahonda, Aranjuez, Arganda,
 Boadilla, Pinto, Colmenar, Tres Cantos};
 
@@ -40,7 +40,41 @@ struct venta{
 venta crearVenta();
 
 Categoria asignarCategoria(Codigo c);
+/*-----------------------------------------------------------*/
 
+/*-------------------ABB----------------------------------*/
+class NodoABB
+{
+private:
+    centro datos;
+
+    NodoABB* izquierda;
+    NodoABB* derecha;
+
+    friend class ABB;
+
+public:
+    NodoABB(centro c,
+            NodoABB* izq = NULL,
+            NodoABB* der = NULL);
+};
+
+
+
+class ABB
+{
+private:
+    NodoABB* raiz;
+
+public:
+    ABB();
+
+    bool arbolVacio();
+
+    void insertarCentro(centro c);
+
+    NodoABB* buscarCentro(int id);
+};
 /*-----------------------------------------------------------*/
 
 /*-------------------Listas----------------------------------*/
