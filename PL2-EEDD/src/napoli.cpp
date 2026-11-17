@@ -30,8 +30,8 @@ const char* categoriaToString(Categoria cat)
     return "Desconocida";
 }
 
-/*---------------------Centros-------------------------------*/
 
+<<<<<<< HEAD
 centro crearCentro(Localidad loc)
 {
     centro c;
@@ -41,6 +41,8 @@ centro crearCentro(Localidad loc)
 }
 
 
+=======
+>>>>>>> 3eaaf0e1e385932712f38cf2a5a55667116d639e
 
 /*-------------------Ventas----------------------------------*/
 
@@ -92,6 +94,111 @@ Categoria asignarCategoria(Codigo c)
 }
 /*-----------------------------------------------------------*/
 
+/*-------------------Listas----------------------------------*/
+
+lista::~lista()
+{
+    NodoLista* aux;
+    while(cabeza!=NULL){
+        aux=cabeza;
+        cabeza= cabeza->siguiente;
+        delete aux;
+    }
+}
+
+void lista:: insertarNodo(venta v)
+{
+    NodoLista* aux;
+    aux= new NodoLista(v);
+    if(listaVacia())
+    {
+        cabeza=aux;
+        final=aux;
+    }
+    else
+    {
+        final->siguiente=aux;
+        final=aux;
+    }
+
+}
+
+void lista::borrarNodo(venta v)
+{
+    actual = cabeza;
+    NodoLista* anterior;
+    while((strcmp(actual->valor.id_venta,v.id_venta)!=0)&&(actual->siguiente!=NULL))
+    {
+        anterior=actual;
+        actual= actual->siguiente;
+    }
+    if(strcmp(actual->valor.id_venta,v.id_venta))
+    {
+        if(actual==cabeza)
+        {
+            cabeza= actual->siguiente;
+        }
+        else
+        {
+            anterior->siguiente= actual->siguiente;
+            if(actual== final)
+            {
+                final=anterior;
+            };
+        }
+        actual->siguiente=NULL;
+        delete actual;
+
+    }
+}
+
+bool lista:: listaVacia()
+{
+    return (cabeza==NULL);
+}
+
+void lista::esCabeza()
+{
+    actual=cabeza;
+}
+void lista:: esFinal()
+{
+    actual=final;
+}
+void lista::esSiguiente()
+{
+    actual= actual->siguiente;
+}
+bool lista::esActual()
+{
+    return (actual!=NULL);
+}
+venta lista::valorActual(){
+    return actual->valor;
+};
+void lista::recorrerLista(){
+    NodoLista* aux;
+    aux = cabeza;
+    while(aux){
+        cout<<aux->valor.id_venta<<endl;
+        aux= aux->siguiente;
+    }
+}
+
+/*---------------------Centros-------------------------------*/
+
+centro crearCentro()
+{
+    centro c;
+    c.id_centro= 100+ rand()%900;
+    c.localidad= static_cast<Localidad>(rand()% N_LOCALIDADES);
+
+    return c;
+}
+
+
+/*-----------------------------------------------------------*/
+
 /*-------------------ABB----------------------------------*/
 NodoABB::NodoABB(centro c,
                  NodoABB* izq,
@@ -131,6 +238,7 @@ void ABB::insertarCentroRec(NodoABB* &nodo, centro c)
         insertarCentroRec(nodo->derecha, c);
     }
 }
+<<<<<<< HEAD
 void ABB::mostrarInorden()
 {
     mostrarInordenRec(raiz);
@@ -254,3 +362,6 @@ venta lista::valorActual()
 void lista::recorrerLista()
 {
 }
+=======
+/*-----------------------------------------------------------*/
+>>>>>>> 3eaaf0e1e385932712f38cf2a5a55667116d639e

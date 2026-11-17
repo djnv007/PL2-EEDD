@@ -1,5 +1,9 @@
 #include<napoli.h>
+<<<<<<< HEAD
 #include <iostream>
+=======
+#include<iostream>
+>>>>>>> 3eaaf0e1e385932712f38cf2a5a55667116d639e
 using namespace std;
 
 int main()

@@ -3,13 +3,19 @@
 #include<cstring>
 #include<ctime>
 #include<cstdlib>
+#include<cstdio>
+#include<iostream>
 #define N_CENTROS 10
 #define N_VENTAS 30
 #define N_LOCALIDADES 20
 
+using namespace std;
+
+<<<<<<< HEAD
 
 
-
+=======
+>>>>>>> 3eaaf0e1e385932712f38cf2a5a55667116d639e
 
 /*-------------------Ventas----------------------------------*/
 
@@ -27,11 +33,15 @@ struct venta{
 
 venta crearVenta(int id_centro_destino);
 Categoria asignarCategoria(Codigo c);
+<<<<<<< HEAD
 void generarFechaAleatoria(char fecha[]);
 const char* codigoToString(Codigo c);
 const char* categoriaToString(Categoria cat);
 
 
+=======
+/*-----------------------------------------------------------*/
+>>>>>>> 3eaaf0e1e385932712f38cf2a5a55667116d639e
 
 /*-------------------Listas----------------------------------*/
 
@@ -126,6 +136,62 @@ public:
     void obtenerIds(int ids[], int& total);
 };
 
+/*-----------------------------------------------------------*/
+
+/*---------------------Centros-------------------------------*/
+
+enum Localidad {Mostoles, Alcala, Leganes, Fuenlabrada, Getafe, Alcorcon, Torrejon, Parla,
+                Alcobendas, Coslada, Pozuelo, Rivas, Valdemoro, Majadahonda, Aranjuez, Arganda,
+                Boadilla, Pinto, Colmenar, TresCantos};
+
+struct centro{
+    int id_centro;
+    Localidad localidad;
+    lista ventas;
+};
+
+centro crearCentro();
+
+
+/*-----------------------------------------------------------*/
+
+/*-------------------ABB----------------------------------*/
+class NodoABB
+{
+private:
+    centro datos;
+
+    NodoABB* izquierda;
+    NodoABB* derecha;
+
+    friend class ABB;
+
+public:
+    NodoABB(centro c,
+            NodoABB* izq = NULL,
+            NodoABB* der = NULL);
+};
+
+
+
+class ABB
+{
+private:
+    NodoABB* raiz;
+    void insertarCentroRec(NodoABB* &nodo, centro c);
+    void mostrarInordenRec(NodoABB* nodo);
+
+public:
+    ABB();
+
+    bool arbolVacio();
+
+    void insertarCentro(centro c);
+
+    NodoABB* buscarCentro(int id);
+
+    void mostrarInorden();
+};
 /*-----------------------------------------------------------*/
 
 #endif // NAPOLI_H
