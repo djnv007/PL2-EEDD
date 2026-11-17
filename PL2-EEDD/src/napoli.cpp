@@ -191,4 +191,19 @@ void ABB::insertarCentroRec(NodoABB* &nodo, centro c)
         insertarCentroRec(nodo->derecha, c);
     }
 }
+void sABB::mostrarInorden()
+{
+    mostrarInordenRec(raiz);
+}
+void ABB::mostrarInordenRec(NodoABB* nodo)
+{
+    if(nodo != NULL)
+    {
+        mostrarInordenRec(nodo->izquierda);
+
+        cout << nodo->datos.id_centro << endl;
+
+        mostrarInordenRec(nodo->derecha);
+    }
+}
 /*-----------------------------------------------------------*/
