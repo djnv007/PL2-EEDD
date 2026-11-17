@@ -68,6 +68,7 @@ class ABB
 private:
     NodoABB* raiz;
     void insertarCentroRec(NodoABB* &nodo, centro c);
+    void mostrarInordenRec(NodoABB* nodo);
 
 public:
     ABB();
@@ -77,6 +78,8 @@ public:
     void insertarCentro(centro c);
 
     NodoABB* buscarCentro(int id);
+
+    void mostrarInorden();
 };
 /*-----------------------------------------------------------*/
 
