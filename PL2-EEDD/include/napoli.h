@@ -8,22 +8,8 @@
 #define N_LOCALIDADES 20
 
 
-/*---------------------Centros-------------------------------*/
-
-enum Localidad {Mostoles, Alcala, Leganes, Fuenlabrada, Getafe, Alcorcon, Torrejon, Parla,
-Alcobendas, Coslada, Pozuelo, Rivas, Valdemoro, Majadahonda, Aranjuez, Arganda,
-Boadilla, Pinto, Colmenar, Tres Cantos};
-
-struct centro{
-    int id_centro;
-    Localidad localidad;
-    lista ventas;
-};
-
-centro crearCentro();
 
 
-/*-----------------------------------------------------------*/
 
 /*-------------------Ventas----------------------------------*/
 
@@ -42,46 +28,7 @@ struct venta{
 venta crearVenta();
 
 Categoria asignarCategoria(Codigo c);
-/*-----------------------------------------------------------*/
 
-/*-------------------ABB----------------------------------*/
-class NodoABB
-{
-private:
-    centro datos;
-
-    NodoABB* izquierda;
-    NodoABB* derecha;
-
-    friend class ABB;
-
-public:
-    NodoABB(centro c,
-            NodoABB* izq = NULL,
-            NodoABB* der = NULL);
-};
-
-
-
-class ABB
-{
-private:
-    NodoABB* raiz;
-    void insertarCentroRec(NodoABB* &nodo, centro c);
-    void mostrarInordenRec(NodoABB* nodo);
-
-public:
-    ABB();
-
-    bool arbolVacio();
-
-    void insertarCentro(centro c);
-
-    NodoABB* buscarCentro(int id);
-
-    void mostrarInorden();
-};
-/*-----------------------------------------------------------*/
 
 /*-------------------Listas----------------------------------*/
 
@@ -106,11 +53,13 @@ private:
     NodoLista* final;
     NodoLista* actual;
 public:
-    lista(){
-        NodoLista* cabeza=NULL;
-        NodoLista* final=NULL;
-        NodoLista* actual=NULL;
-    }
+    lista()
+{
+    cabeza = NULL;
+    final = NULL;
+    actual = NULL;
+}
+
     ~lista();
 
     void insertarNodo(venta v);
@@ -123,6 +72,61 @@ public:
     bool buscarVenta(venta v);
     venta valorActual();
     void recorrerLista();
+};
+/*---------------------Centros-------------------------------*/
+
+enum Localidad {Mostoles, Alcala, Leganes, Fuenlabrada, Getafe, Alcorcon, Torrejon, Parla,
+Alcobendas, Coslada, Pozuelo, Rivas, Valdemoro, Majadahonda, Aranjuez, Arganda,
+Boadilla, Pinto, Colmenar, TresCantos};
+
+struct centro{
+    int id_centro;
+    Localidad localidad;
+    lista ventas;
+};
+
+centro crearCentro();
+/*-------------------ABB----------------------------------*/
+class NodoABB
+{
+private:
+    centro datos;
+
+    NodoABB* izquierda;
+    NodoABB* derecha;
+
+    friend class ABB;
+
+public:
+    NodoABB(centro c,
+            NodoABB* izq = NULL,
+            NodoABB* der = NULL);
+};
+
+
+
+class ABB
+{
+private:
+
+    NodoABB* raiz;
+
+    void insertarCentroRec(NodoABB* &nodo, centro c);
+
+    void mostrarInordenRec(NodoABB* nodo);
+
+    NodoABB* buscarCentroRec(NodoABB* nodo, int id);
+
+public:
+    ABB();
+
+    bool arbolVacio();
+
+    void insertarCentro(centro c);
+
+    NodoABB* buscarCentro(int id);
+
+    void mostrarInorden();
 };
 
 /*-----------------------------------------------------------*/

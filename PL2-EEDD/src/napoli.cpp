@@ -1,5 +1,8 @@
 #include "napoli.h"
+#include <cstdio>
+#include <iostream>
 
+using namespace std;
 /*---------------------Centros-------------------------------*/
 
 centro crearCentro()
@@ -7,7 +10,7 @@ centro crearCentro()
     centro c;
     lista ventas;
     c.id_centro= 100+ rand()%900;
-    c.localidad= rand()% N_LOCALIDADES;
+    c.localidad = static_cast<Localidad>(rand()%N_LOCALIDADES);
     c.ventas= ventas;
 
     return c;
@@ -100,7 +103,7 @@ void ABB::insertarCentroRec(NodoABB* &nodo, centro c)
         insertarCentroRec(nodo->derecha, c);
     }
 }
-void sABB::mostrarInorden()
+void ABB::mostrarInorden()
 {
     mostrarInordenRec(raiz);
 }
@@ -123,7 +126,7 @@ lista::~lista()
 {
     //dtor
 }
-~lista();
+
 
 void lista:: insertarNodo(venta v)
 {
@@ -142,7 +145,7 @@ void lista:: insertarNodo(venta v)
 
 }
 
-void lista::borrarNodo(venta v)
+/*void lista::borrarNodo(venta v)
 {
     actual = cabeza;
     NodoLista* anterior;
@@ -162,14 +165,14 @@ void lista::borrarNodo(venta v)
             anterior->siguiente= actual->siguiente;
             if(actual== final)
             {
-                final=anterior
+                final=anterior;
             };
         }
         actual->siguiente=NULL;
         delete actual;
 
     }
-}
+}*/
 
 bool lista:: listaVacia()
 {
@@ -190,7 +193,13 @@ void lista::esSiguiente()
 }
 bool lista::esActual()
 {
-    return (actual!=NULL;)
+    return (actual!=NULL);
 }
-int lista::valorActual();
-void lista::recorrerLista();
+venta lista::valorActual()
+{
+    return actual->valor;
+}
+
+void lista::recorrerLista()
+{
+}
