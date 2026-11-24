@@ -23,6 +23,31 @@ EXPLICACIÓN TAD LISTA:
 -hemos optado por una lista simplemente enlazada que representa las ventas que ese centro posee, cada centro tiene su propia lista de 
 ventas. La implementación se divide en nodoLista, que representa una ventas de un centro en especifico y lista, que es el conjunto de
 ventas (nodoLista) de ese centro.
+FUNCIONES DESTACABLES LISTA:
+-int contarVentas():
+  Recorre a través de un puntero a nodo auxiliar todos los nodos de la lista, hasta que el nodo sea 
+  NULL (no hay más nodos que contar), va aumentando el contador de nodos.
+-void insertarNodo(venta v):
+  Reserva memoria para un puntero a nodoLista (llamado aux), si la lista es vacia, la cabeza y el final apuntarán a este nodo, sino, 
+  se enlaza el nodo con el que era el nodo final y el valor de final pasa a apuntar a este nuevo nodo.
+-void vaciar():
+  Elimina a través del puntero nodoLista aux, todos los nodos que se encuentran (hasta que aux=NULL)
+-bool listaVacia():
+  Devuelve true si la cabeza == NULL y false en el otro caso.
+-void esCabeza();
+-void esFinal();
+-void esSiguiente();
+-bool esActual();
+-venta valorActual();
+-void mostrarVentas():
+  Si la lista es vacia, muestra por la salida que no hay ventas registradas.
+  Si no es vacia, recorre toda la lista, nodo por nodo y va mostrando los datos de cada venta (valor de nodoLista)
+-bool buscarVenta(const char id_venta[], venta& encontrada):
+  Se le pasa el id_venta a buscar y la venta por referencia para, en caso de ser encontrada, al salir de la función, tenga la venta encontrada.
+  Compara nodo a nodo si el id_venta es igual al id_venta de ese nodo.
+-bool eliminarVenta(char id_venta[]):
+  
+
 
 EXPLICACIÓN FUNCIONES:
 -centro crearCentro():
