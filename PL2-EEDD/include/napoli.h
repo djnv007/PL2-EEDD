@@ -66,6 +66,7 @@ public:
     venta valorActual();
     void mostrarVentas();
     bool buscarVenta(const char id_venta[], venta& encontrada);
+    bool eliminarVenta(char id_venta[]);
 };
 
 /*---------------------Centros-------------------------------*/

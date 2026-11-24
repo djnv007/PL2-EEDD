@@ -366,4 +366,22 @@ bool lista::buscarVenta(const char id_venta[], venta& encontrada)
     }
     return false;
 }
+bool lista::eliminarVenta(char id_venta[]){
+    if(!listaVacia()){
+        if(cabeza==final){
+            cabeza = NULL;
+            final = NULL;
+        }
+        else{
+            NodoLista* anterior;
+            bool encontrada;
+            while(actual!= NULL && !encontrada){
+                if(strcmp(id_venta[],actual->valor.id_venta)==0){
+                    actual= actual->siguiente;
+                }
+            }
+        }
+    }
+    return false;
+}
 

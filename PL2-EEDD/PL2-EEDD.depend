@@ -24,8 +24,26 @@
 	<ctime>
 	<cstdlib>
 
+<<<<<<< Updated upstream
 1795509713 source:c:\users\noahf\desktop\uni\segundo_curso\primer_cuatri\estructuras_de_datos\lab\pl2-eedd\pl2-eedd\main.cpp
+=======
+1795504404 source:c:\users\alumno\documents\djnv\pl2-eedd\pl2-eedd\main.cpp
+>>>>>>> Stashed changes
 	"napoli.h"
 	<iostream>
 	<iomanip>
 
+<<<<<<< Updated upstream
+=======
+1795504404 c:\users\alumno\documents\djnv\pl2-eedd\pl2-eedd\include\napoli.h
+	<cstring>
+	<ctime>
+	<cstdlib>
+
+1795504404 source:c:\users\alumno\documents\djnv\pl2-eedd\pl2-eedd\src\napoli.cpp
+	"napoli.h"
+	<cstdio>
+	<iostream>
+	<iomanip>
+
+>>>>>>> Stashed changes

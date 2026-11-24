@@ -120,7 +120,69 @@ int main()
                          << localidadToString(nuevo.localidad) << ") insertado correctamente." << endl;
                 }
             }
+<<<<<<< Updated upstream
             break;
+=======
+            case 3:
+            {
+                int idConsulta;
+                cout << "\nIntroduzca el ID del centro a consultar: ";
+                cin >> idConsulta;
+
+                if (!arbol.mostrarVentasCentro(idConsulta))
+                {
+                    cout << "Error: No existe ningun centro con ID " << idConsulta << "." << endl;
+                }
+                break;
+            }
+            case 4:
+            {
+                char idBuscar[10];
+                cout << "\nIntroduzca el ID de la venta a buscar (ej. V10000): ";
+                cin >> setw(10) >> idBuscar;
+
+                venta vEncontrada;
+                Localidad locCentro;
+
+                if (arbol.buscarVentaGlobal(idBuscar, vEncontrada, locCentro))
+                {
+                    cout << "\n--- VENTA LOCALIZADA ---" << endl;
+                    cout << "ID Venta   : " << vEncontrada.id_venta << endl;
+                    cout << "Centro     : " << vEncontrada.id_centro
+                         << " (" << localidadToString(locCentro) << ")" << endl;
+                    cout << "Pizza      : " << codigoToString(vEncontrada.cod_pizza)
+                         << " (" << categoriaToString(vEncontrada.categoria) << ")" << endl;
+                    cout << "Unidades   : " << vEncontrada.unidades << endl;
+                    cout << "Fecha      : " << vEncontrada.fecha_venta << endl;
+                }
+                else
+                {
+                    cout << "No se ha encontrado ninguna venta con el ID " << idBuscar << "." << endl;
+                }
+                break;
+            }
+            case 5:
+            {
+                char id_venta[10];
+                venta Vencontrada;
+                Localidad locCentro;
+
+                cout<< "INTRODUCE EL ID_VENTA A ELIMINAR";
+                cin>>id_venta;
+
+                if(arbol.buscarVentaGlobal(id_venta[], Vencontrada, locCentro)){
+                    NodoABB* aux = arbol.buscarCentro(Vencontrada.id_centro);
+                    aux->datos.ventas; //pendiente de hacer metodo eliminar venta
+                }
+            }
+
+            case 0:
+                cout << "\nLiberando memoria y saliendo del programa..." << endl;
+                break;
+            default:
+                cout << "\nOpcion no implementada aun o no valida." << endl;
+                break;
+>>>>>>> Stashed changes
         }
         case 2:
         {
