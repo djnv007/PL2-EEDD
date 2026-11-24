@@ -110,6 +110,76 @@ void ABB::insertarCentroRec(NodoABB* &nodo, const centro& c) {
         insertarCentroRec(nodo->derecha, c);
     }
 }
+bool ABB::borrarCentro(int id)
+{
+    return borrarCentroRec(raiz, id);
+}
+bool ABB::borrarCentroRec(NodoABB* &nodo, int id)
+{
+    if (nodo == NULL)
+        return false;
+
+    if (id < nodo->datos.id_centro)
+        return borrarCentroRec(nodo->izquierda, id);
+
+    if (id > nodo->datos.id_centro)
+        return borrarCentroRec(nodo->derecha, id);
+
+    // Caso hoja
+    if (nodo->izquierda == NULL &&
+        nodo->derecha == NULL)
+    {
+        nodo->datos.ventas.vaciar();
+
+        delete nodo;
+        nodo = NULL;
+
+        return true;
+    }
+
+    // Caso un hijo izquierdo
+    if (nodo->izquierda != NULL &&
+        nodo->derecha == NULL)
+    {
+        NodoABB* aux = nodo;
+
+        nodo = nodo->izquierda;
+
+        aux->datos.ventas.vaciar();
+        delete aux;
+
+        return true;
+    }
+
+    // Caso un hijo derecho
+    if (nodo->izquierda == NULL &&
+        nodo->derecha != NULL)
+    {
+        NodoABB* aux = nodo;
+
+        nodo = nodo->derecha;
+
+        aux->datos.ventas.vaciar();
+        delete aux;
+
+        return true;
+    }
+
+    // Caso dos hijos
+    NodoABB* sucesor = nodo->derecha;
+
+    while (sucesor->izquierda != NULL)
+    {
+        sucesor = sucesor->izquierda;
+    }
+
+    nodo->datos = sucesor->datos;
+
+    return borrarCentroRec(
+        nodo->derecha,
+        sucesor->datos.id_centro
+    );
+}
 
 void ABB::mostrarInorden() {
     mostrarInordenRec(raiz);

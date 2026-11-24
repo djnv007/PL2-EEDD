@@ -80,95 +80,116 @@ int main()
 
         switch (opcion)
         {
-            case 1:
-            {
-                int idNuevo;
-                cout << "\nIntroduzca el ID del nuevo centro (3 cifras, 100-999): ";
-                cin >> idNuevo;
+        case 1:
+        {
+            int idNuevo;
+            cout << "\nIntroduzca el ID del nuevo centro (3 cifras, 100-999): ";
+            cin >> idNuevo;
 
-                if (idNuevo < 100 || idNuevo > 999)
+            if (idNuevo < 100 || idNuevo > 999)
+            {
+                cout << "Error: El identificador debe ser un numero de 3 cifras." << endl;
+            }
+            else if (arbol.buscarCentro(idNuevo) != NULL)
+            {
+                cout << "Error: Ya existe un centro con el ID " << idNuevo << "." << endl;
+            }
+            else
+            {
+                cout << "Seleccione una localidad:" << endl;
+                for (int i = 0; i < N_LOCALIDADES; ++i)
                 {
-                    cout << "Error: El identificador debe ser un numero de 3 cifras." << endl;
+                    cout << i << ") " << localidadToString(static_cast<Localidad>(i)) << "  ";
+                    if ((i + 1) % 4 == 0) cout << endl;
                 }
-                else if (arbol.buscarCentro(idNuevo) != NULL)
+                int codLoc;
+                cout << "Numero de localidad (0-" << N_LOCALIDADES - 1 << "): ";
+                cin >> codLoc;
+
+                if (codLoc < 0 || codLoc >= N_LOCALIDADES)
                 {
-                    cout << "Error: Ya existe un centro con el ID " << idNuevo << "." << endl;
+                    cout << "Error: Localidad no valida. Operacion cancelada." << endl;
                 }
                 else
                 {
-                    cout << "Seleccione una localidad:" << endl;
-                    for (int i = 0; i < N_LOCALIDADES; ++i)
-                    {
-                        cout << i << ") " << localidadToString(static_cast<Localidad>(i)) << "  ";
-                        if ((i + 1) % 4 == 0) cout << endl;
-                    }
-                    int codLoc;
-                    cout << "Numero de localidad (0-" << N_LOCALIDADES - 1 << "): ";
-                    cin >> codLoc;
-
-                    if (codLoc < 0 || codLoc >= N_LOCALIDADES)
-                    {
-                        cout << "Error: Localidad no valida. Operacion cancelada." << endl;
-                    }
-                    else
-                    {
-                        centro nuevo;
-                        nuevo.id_centro = idNuevo;
-                        nuevo.localidad = static_cast<Localidad>(codLoc);
-                        arbol.insertarCentro(nuevo);
-                        cout << "Centro " << idNuevo << " ("
-                             << localidadToString(nuevo.localidad) << ") insertado correctamente." << endl;
-                    }
+                    centro nuevo;
+                    nuevo.id_centro = idNuevo;
+                    nuevo.localidad = static_cast<Localidad>(codLoc);
+                    arbol.insertarCentro(nuevo);
+                    cout << "Centro " << idNuevo << " ("
+                         << localidadToString(nuevo.localidad) << ") insertado correctamente." << endl;
                 }
-                break;
             }
-            case 3:
-            {
-                int idConsulta;
-                cout << "\nIntroduzca el ID del centro a consultar: ";
-                cin >> idConsulta;
-
-                if (!arbol.mostrarVentasCentro(idConsulta))
-                {
-                    cout << "Error: No existe ningun centro con ID " << idConsulta << "." << endl;
-                }
-                break;
-            }
-            case 4:
-            {
-                char idBuscar[10];
-                cout << "\nIntroduzca el ID de la venta a buscar (ej. V10000): ";
-                cin >> setw(10) >> idBuscar;
-
-                venta vEncontrada;
-                Localidad locCentro;
-
-                if (arbol.buscarVentaGlobal(idBuscar, vEncontrada, locCentro))
-                {
-                    cout << "\n--- VENTA LOCALIZADA ---" << endl;
-                    cout << "ID Venta   : " << vEncontrada.id_venta << endl;
-                    cout << "Centro     : " << vEncontrada.id_centro
-                         << " (" << localidadToString(locCentro) << ")" << endl;
-                    cout << "Pizza      : " << codigoToString(vEncontrada.cod_pizza)
-                         << " (" << categoriaToString(vEncontrada.categoria) << ")" << endl;
-                    cout << "Unidades   : " << vEncontrada.unidades << endl;
-                    cout << "Fecha      : " << vEncontrada.fecha_venta << endl;
-                }
-                else
-                {
-                    cout << "No se ha encontrado ninguna venta con el ID " << idBuscar << "." << endl;
-                }
-                break;
-            }
-
-            case 0:
-                cout << "\nLiberando memoria y saliendo del programa..." << endl;
-                break;
-            default:
-                cout << "\nOpcion no implementada aun o no valida." << endl;
-                break;
+            break;
         }
-    } while (opcion != 0);
+        case 2:
+        {
+            int idBorrar;
+            cout << "\nIntroduzca el ID del centro a borrar: ";
+            cin >> idBorrar;
 
-    return 0;
+            if (arbol.borrarCentro(idBorrar))
+            {
+                cout << "Centro " << idBorrar
+                     << " eliminado correctamente." << endl;
+            }
+            else
+            {
+                cout << "No existe ningun centro con ID "
+                     << idBorrar << "." << endl;
+            }
+
+            break;
+        }
+
+    case 3:
+        {
+            int idConsulta;
+            cout << "\nIntroduzca el ID del centro a consultar: ";
+            cin >> idConsulta;
+
+            if (!arbol.mostrarVentasCentro(idConsulta))
+            {
+                cout << "Error: No existe ningun centro con ID " << idConsulta << "." << endl;
+            }
+            break;
+        }
+    case 4:
+        {
+            char idBuscar[10];
+            cout << "\nIntroduzca el ID de la venta a buscar (ej. V10000): ";
+            cin >> setw(10) >> idBuscar;
+
+            venta vEncontrada;
+            Localidad locCentro;
+
+            if (arbol.buscarVentaGlobal(idBuscar, vEncontrada, locCentro))
+            {
+                cout << "\n--- VENTA LOCALIZADA ---" << endl;
+                cout << "ID Venta   : " << vEncontrada.id_venta << endl;
+                cout << "Centro     : " << vEncontrada.id_centro
+                     << " (" << localidadToString(locCentro) << ")" << endl;
+                cout << "Pizza      : " << codigoToString(vEncontrada.cod_pizza)
+                     << " (" << categoriaToString(vEncontrada.categoria) << ")" << endl;
+                cout << "Unidades   : " << vEncontrada.unidades << endl;
+                cout << "Fecha      : " << vEncontrada.fecha_venta << endl;
+            }
+            else
+            {
+                cout << "No se ha encontrado ninguna venta con el ID " << idBuscar << "." << endl;
+            }
+            break;
+        }
+
+    case 0:
+        cout << "\nLiberando memoria y saliendo del programa..." << endl;
+        break;
+    default:
+        cout << "\nOpcion no implementada aun o no valida." << endl;
+        break;
+    }
+}
+while (opcion != 0);
+
+return 0;
 }

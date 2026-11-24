@@ -106,6 +106,8 @@ private:
     void obtenerIdsRec(NodoABB* nodo, int ids[], int& indice);
     void destruirArbolRec(NodoABB* &nodo);
     bool buscarVentaRec(NodoABB* nodo, const char id_venta[], venta& encontrada, Localidad& locCentro);
+    bool borrarCentroRec(NodoABB* &nodo, int id);
+
 
 public:
     ABB();
@@ -120,6 +122,8 @@ public:
     void mostrarResumen();
     bool mostrarVentasCentro(int id);
     bool buscarVentaGlobal(const char id_venta[], venta& encontrada, Localidad& locCentro);
+    bool borrarCentro(int id);
+
 
 };
 
