@@ -23,6 +23,7 @@ EXPLICACIÓN TAD LISTA:
 -hemos optado por una lista simplemente enlazada que representa las ventas que ese centro posee, cada centro tiene su propia lista de 
 ventas. La implementación se divide en nodoLista, que representa una ventas de un centro en especifico y lista, que es el conjunto de
 ventas (nodoLista) de ese centro.
+
 FUNCIONES DESTACABLES LISTA:
 -int contarVentas():
   Recorre a través de un puntero a nodo auxiliar todos los nodos de la lista, hasta que el nodo sea 
@@ -46,8 +47,13 @@ FUNCIONES DESTACABLES LISTA:
   Se le pasa el id_venta a buscar y la venta por referencia para, en caso de ser encontrada, al salir de la función, tenga la venta encontrada.
   Compara nodo a nodo si el id_venta es igual al id_venta de ese nodo.
 -bool eliminarVenta(char id_venta[]):
+  Se le introduce el id_venta a buscar y si lo encuentra, elimina la venta en la posición en que se encuentre, si es el primer elemento, la cabeza apunta al siguiente,
+  si solo hay 1 elemento la cabeza y final dejarían de apuntar a algún nodo. Por otro lado, si se encuentra al final o entre medias, el nodo anterior a ese se enlaza
+  con el siguiente del que vamos a borrar, si además es el final, el puntero final apuntaría al anterior.
   
-
+---------------------------------------------------------------------------------------------------------------------------------
+EXPLICACIÓN ÁRBOL BINARIO DE BUSQUEDA:
+-Utilizamos un árbol binario, cuyo cada nodo representa a un centro (pizzería), cada centro según hemos visto, almacena a su vez una lista enlazada con las ventas que ha realizado.
 
 EXPLICACIÓN FUNCIONES:
 -centro crearCentro():
@@ -58,9 +64,9 @@ EXPLICACIÓN FUNCIONES:
 
 -venta crearVenta():
   se le asigna aleatoriamente un id_centro entre únicamente los ya existentes.
-  id_venta
+  El id_venta se asigna mediante una variable estática compartida, de tal forma que los id's se generan por orden y no hay repetidos.
   Se genera un código de pizza entre los establecidos en el tipo enumerado, y posteriormente llamando a asignarCategoria() pasandole
   como argumento el codigo de pizza que se ha generado, se establece su categoria.
   Las unidades de esa venta son un número aleatorio entre el 1 y el 20.
-  La fecha de venta se valida y se establece una aleatoria pero válida.
+  La fecha de venta se valida y se establece una aleatoria llamando a generarFechaAleatoria().
   
